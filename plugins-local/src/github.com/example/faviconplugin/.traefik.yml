@@ -1,0 +1,10 @@
+displayName: Static File Responder
+type: middleware
+import: github.com/example/faviconplugin
+summary: Respond with a static file when the request URL (scheme://host/path?query) matches a regular expression.
+
+testData:
+  rules:
+    - regex: ^https?://[^/]+/favicon\.ico$
+      filePath: /static/favicon.ico
+      contentType: image/x-icon

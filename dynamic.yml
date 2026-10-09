@@ -1,0 +1,26 @@
+http:
+  routers:
+    app:
+      rule: PathPrefix(`/`)
+      entryPoints: [web]
+      service: whoami
+      middlewares: [static-files]
+
+  middlewares:
+    static-files:
+      plugin:
+        favicon:
+          rules:
+            # Specific domain first: first match wins
+            - regex: ^https?://a\.localhost(:\d+)?/favicon\.ico(\?.*)?$
+              filePath: /static/favicon-sub.ico
+              contentType: image/x-icon
+            - regex: ^https?://b¥.localhost(:\d+)?/favicon\.ico(\?.*)?$
+              filePath: /static/favicon.ico
+              contentType: image/x-icon
+
+  services:
+    whoami:
+      loadBalancer:
+        servers:
+          - url: http://whoami:80

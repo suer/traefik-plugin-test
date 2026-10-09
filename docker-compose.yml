@@ -1,0 +1,13 @@
+services:
+  traefik:
+    image: traefik:v3.1
+    ports:
+      - "8080:80"
+    volumes:
+      - ./traefik.yml:/etc/traefik/traefik.yml:ro
+      - ./dynamic.yml:/etc/traefik/dynamic.yml:ro
+      - ./plugins-local:/plugins-local:ro
+      - ./static:/static:ro
+
+  whoami:
+    image: traefik/whoami
